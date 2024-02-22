@@ -35,13 +35,28 @@ class Time_calculator:
             added_time.hour += overlap_minute
             added_time.min -= 60*overlap_minute
 
+        # flag for the next day indication
+        is_next_day = False
+        days_after = 0
+
         # convert overlapping hours into days
         overlap_hour = added_time.hour // 24
-        if overlap_hour >= 1:
+        if overlap_hour == 1:
             added_time.hour -= 24*overlap_hour
-
+            days_after = 1
+            is_next_day = True
         
-        return added_time
+        elif overlap_hour >= 2:
+            added_time.hour -= 24*overlap_hour
+            days_after = overlap_hour
+            is_next_day = False
+
+        if days_after == 0:
+            return added_time
+        elif is_next_day:
+            return f"{added_time}, next day"
+        else:
+            return f"{added_time}, {days_after} days after"
 
 # test run 
-print(Time_calculator.calculate_time("15:00", "10:00"))
+print(Time_calculator.calculate_time("00:00", "75:70"))
