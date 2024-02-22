@@ -20,14 +20,28 @@ class Time_calculator:
         
         # split the strings to extract the hour and minute integers 
         start_hour, start_min = start_time.split(":")
-        duration_hour, duration_minute = duration.split(":")
+        duration_hour, duration_min = duration.split(":")
 
         # create objects to use with the custom methods
         start_time_object = Time_object(start_hour, start_min)
-        duration_time_object = Time_object(duration_hour, duration_minute)
+        duration_time_object = Time_object(duration_hour, duration_min)
 
-        # perform the addition, return the result
-        return start_time_object + duration_time_object
+        # perform the addition
+        added_time = start_time_object + duration_time_object
 
-# test run 1
-print(Time_calculator.calculate_time("10:05", "3:20"))
+        # convert overlapping minutes into hours 
+        overlap_minute = added_time.min // 60
+        if overlap_minute >= 1:
+            added_time.hour += overlap_minute
+            added_time.min -= 60*overlap_minute
+
+        # convert overlapping hours into days
+        overlap_hour = added_time.hour // 24
+        if overlap_hour >= 1:
+            added_time.hour -= 24*overlap_hour
+
+        
+        return added_time
+
+# test run 
+print(Time_calculator.calculate_time("15:00", "10:00"))
