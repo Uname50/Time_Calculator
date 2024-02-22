@@ -15,7 +15,6 @@ class Time_object:
 
 class Time_calculator:
 
-    @staticmethod
     def calculate_time(start_time, duration, day_of_week = "MON"):
         
         # split the strings to extract the hour and minute integers 
@@ -57,6 +56,3 @@ class Time_calculator:
             return f"{added_time}, next day"
         else:
             return f"{added_time}, {days_after} days after"
-
-# test run 
-print(Time_calculator.calculate_time("00:00", "75:70"))
